@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SistemaOficina" Class="SistemaOficinaDataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Clientes" Member="Clientes">
+    <Type Name="Cliente">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apelido" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Contacto" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="NIF" Type="System.String" DbType="NVarChar(9)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Cliente_Marcacoe" Member="Marcacoes" ThisKey="Id" OtherKey="IdCliente" Type="Marcacoe" />
+      <Association Name="Cliente_Veiculo" Member="Veiculos" ThisKey="Id" OtherKey="IdCliente" Type="Veiculo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Marcacoes" Member="Marcacoes">
+    <Type Name="Marcacoe">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdVeiculo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdMecanico" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TipoServico" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DataHora" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Marcacoe_Reparacoe" Member="Reparacoes" ThisKey="Id" OtherKey="IdMarcacao" Type="Reparacoe" />
+      <Association Name="Cliente_Marcacoe" Member="Cliente" ThisKey="IdCliente" OtherKey="Id" Type="Cliente" IsForeignKey="true" />
+      <Association Name="Mecanico_Marcacoe" Member="Mecanico" ThisKey="IdMecanico" OtherKey="Id" Type="Mecanico" IsForeignKey="true" />
+      <Association Name="Veiculo_Marcacoe" Member="Veiculo" ThisKey="IdVeiculo" OtherKey="Id" Type="Veiculo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Mecanicos" Member="Mecanicos">
+    <Type Name="Mecanico">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Especialidade" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Horario" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Contacto" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ativo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Mecanico_Marcacoe" Member="Marcacoes" ThisKey="Id" OtherKey="IdMecanico" Type="Marcacoe" />
+      <Association Name="Mecanico_ReparacoesMecanico" Member="ReparacoesMecanicos" ThisKey="Id" OtherKey="IdMecanico" Type="ReparacoesMecanico" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Reparacoes" Member="Reparacoes">
+    <Type Name="Reparacoe">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdMarcacao" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Pecas" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CustoTotal" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="DataInicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DataFim" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Concluida" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TipoServico" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Reparacoe_ReparacoesMecanico" Member="ReparacoesMecanicos" ThisKey="Id" OtherKey="IdReparacao" Type="ReparacoesMecanico" />
+      <Association Name="Marcacoe_Reparacoe" Member="Marcacoe" ThisKey="IdMarcacao" OtherKey="Id" Type="Marcacoe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReparacoesMecanicos" Member="ReparacoesMecanicos">
+    <Type Name="ReparacoesMecanico">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdReparacao" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdMecanico" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Mecanico_ReparacoesMecanico" Member="Mecanico" ThisKey="IdMecanico" OtherKey="Id" Type="Mecanico" IsForeignKey="true" />
+      <Association Name="Reparacoe_ReparacoesMecanico" Member="Reparacoe" ThisKey="IdReparacao" OtherKey="Id" Type="Reparacoe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Veiculos" Member="Veiculos">
+    <Type Name="Veiculo">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Matricula" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Marca" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Modelo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Ano" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quilometragem" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Combustivel" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Veiculo_Marcacoe" Member="Marcacoes" ThisKey="Id" OtherKey="IdVeiculo" Type="Marcacoe" />
+      <Association Name="Cliente_Veiculo" Member="Cliente" ThisKey="IdCliente" OtherKey="Id" Type="Cliente" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
