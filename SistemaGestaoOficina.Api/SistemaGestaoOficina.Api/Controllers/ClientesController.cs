@@ -102,9 +102,29 @@ namespace SistemaGestaoOficina.Api.Controllers
         }
 
         // DELETE: api/Clientes/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            Cliente cliente = dc.Clientes.FirstOrDefault(c => c.Id == id);
 
+            if (cliente == null)
+            {
+                {
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Cliente não encontrado"));
+                }
+
+            }
+            dc.Clientes.DeleteOnSubmit(cliente);
+
+            try
+            {
+                dc.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.NotFound, e));
+            }
+
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
         }
 
 
