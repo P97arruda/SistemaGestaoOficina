@@ -1669,8 +1669,9 @@ namespace SistemaGestaoOficina.Api
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Veiculo_Marcacoe", Storage="_Marcacoes", ThisKey="Id", OtherKey="IdVeiculo")]
+
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Veiculo_Marcacoe", Storage="_Marcacoes", ThisKey="Id", OtherKey="IdVeiculo")]
 		public EntitySet<Marcacoe> Marcacoes
 		{
 			get
@@ -1682,8 +1683,9 @@ namespace SistemaGestaoOficina.Api
 				this._Marcacoes.Assign(value);
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Veiculo", Storage="_Cliente", ThisKey="IdCliente", OtherKey="Id", IsForeignKey=true)]
+
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Veiculo", Storage="_Cliente", ThisKey="IdCliente", OtherKey="Id", IsForeignKey=true)]
 		public Cliente Cliente
 		{
 			get

@@ -113,6 +113,15 @@ namespace SistemaGestaoOficina.Api.Controllers
                 }
 
             }
+
+            Veiculo veiculo = dc.Veiculos.FirstOrDefault(v => v.IdCliente == id);
+
+            if (veiculo != null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict, "Não é possivel apagar o cliente por que ele possui veiculo cadastrado")); 
+            }
+
+
             dc.Clientes.DeleteOnSubmit(cliente);
 
             try
