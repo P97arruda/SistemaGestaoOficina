@@ -573,8 +573,9 @@ namespace SistemaGestaoOficina.Api
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Marcacoe_Reparacoe", Storage="_Reparacoes", ThisKey="Id", OtherKey="IdMarcacao")]
+
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Marcacoe_Reparacoe", Storage="_Reparacoes", ThisKey="Id", OtherKey="IdMarcacao")]
 		public EntitySet<Reparacoe> Reparacoes
 		{
 			get
@@ -586,8 +587,8 @@ namespace SistemaGestaoOficina.Api
 				this._Reparacoes.Assign(value);
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Marcacoe", Storage="_Cliente", ThisKey="IdCliente", OtherKey="Id", IsForeignKey=true)]
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Marcacoe", Storage="_Cliente", ThisKey="IdCliente", OtherKey="Id", IsForeignKey=true)]
 		public Cliente Cliente
 		{
 			get
@@ -620,8 +621,8 @@ namespace SistemaGestaoOficina.Api
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mecanico_Marcacoe", Storage="_Mecanico", ThisKey="IdMecanico", OtherKey="Id", IsForeignKey=true)]
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mecanico_Marcacoe", Storage="_Mecanico", ThisKey="IdMecanico", OtherKey="Id", IsForeignKey=true)]
 		public Mecanico Mecanico
 		{
 			get
@@ -654,8 +655,8 @@ namespace SistemaGestaoOficina.Api
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Veiculo_Marcacoe", Storage="_Veiculo", ThisKey="IdVeiculo", OtherKey="Id", IsForeignKey=true)]
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Veiculo_Marcacoe", Storage="_Veiculo", ThisKey="IdVeiculo", OtherKey="Id", IsForeignKey=true)]
 		public Veiculo Veiculo
 		{
 			get
@@ -888,8 +889,8 @@ namespace SistemaGestaoOficina.Api
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mecanico_Marcacoe", Storage="_Marcacoes", ThisKey="Id", OtherKey="IdMecanico")]
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mecanico_Marcacoe", Storage="_Marcacoes", ThisKey="Id", OtherKey="IdMecanico")]
 		public EntitySet<Marcacoe> Marcacoes
 		{
 			get
@@ -901,8 +902,9 @@ namespace SistemaGestaoOficina.Api
 				this._Marcacoes.Assign(value);
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mecanico_ReparacoesMecanico", Storage="_ReparacoesMecanicos", ThisKey="Id", OtherKey="IdMecanico")]
+
+        [JsonIgnore]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mecanico_ReparacoesMecanico", Storage="_ReparacoesMecanicos", ThisKey="Id", OtherKey="IdMecanico")]
 		public EntitySet<ReparacoesMecanico> ReparacoesMecanicos
 		{
 			get

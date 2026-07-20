@@ -123,7 +123,7 @@ namespace SistemaGestaoOficina.Api.Controllers
         /// <param name="novoVeiculo"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-         private string ValidaVeiculo(Mecanico mecanico, int idIgnorar = 0)
+        private string ValidaVeiculo(Mecanico mecanico, int idIgnorar = 0)
         {
             Mecanico mecanicoContacto = dc.Mecanicos.FirstOrDefault(m =>  m.Contacto == mecanico.Contacto && m.Id != idIgnorar);
 
