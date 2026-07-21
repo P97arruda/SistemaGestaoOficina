@@ -105,6 +105,13 @@ namespace SistemaGestaoOficina.Api.Controllers
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Veículo não encontrado"));
             }
 
+            Marcacoe marcacao = dc.Marcacoes.FirstOrDefault(m => m.IdVeiculo == id);
+
+            if (marcacao != null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,"O veículo possui marcações."));
+            }
+
             dc.Veiculos.DeleteOnSubmit(veiculo);
 
             try
@@ -121,18 +128,18 @@ namespace SistemaGestaoOficina.Api.Controllers
 
 
         /// <summary>
-        /// 
+        /// Valida os dados dos veículos
         /// </summary>
         /// <param name="veiculo"></param>
         /// <param name="IdIgnorado"></param>
         /// <returns></returns>
-        private string ValidaVeiculo(Veiculo veiculo, int IdIgnorado = 0)
+        private string ValidaVeiculo(Veiculo veiculo, int idIgnorar = 0)
         {
-            Veiculo veiculoMatricula = dc.Veiculos.FirstOrDefault(v => v.Matricula == veiculo.Matricula &&  v.Id != IdIgnorado);
+            Veiculo veiculoMatricula = dc.Veiculos.FirstOrDefault(v => v.Matricula == veiculo.Matricula && v.Id != idIgnorar);
 
             if (veiculoMatricula != null) 
             {
-                return "Já existe um veiculo com essa matricula";
+                return "Já existe um veículo com essa matrícula.";
             }
 
             Cliente cliente = dc.Clientes.FirstOrDefault(c => c.Id == veiculo.IdCliente);

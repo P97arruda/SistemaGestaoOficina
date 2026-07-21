@@ -36,7 +36,7 @@ namespace SistemaGestaoOficina.Api.Controllers
         // POST: api/Mecanicos
         public IHttpActionResult Post([FromBody]Mecanico novoMecanico)
         {
-            string erro = ValidaVeiculo(novoMecanico);
+            string erro = ValidaMecanico(novoMecanico);
 
             if (erro != null)
             {
@@ -66,7 +66,7 @@ namespace SistemaGestaoOficina.Api.Controllers
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Mecanico não foi encontrado"));
             }
 
-            string erro = ValidaVeiculo(mecanicoAlterado, id);
+            string erro = ValidaMecanico(mecanicoAlterado, id);
 
             if (erro != null) 
             {
@@ -101,6 +101,13 @@ namespace SistemaGestaoOficina.Api.Controllers
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Mecânico não encontrado"));
             }
 
+            Marcacoe marcacao = dc.Marcacoes.FirstOrDefault(m => m.IdMecanico == id);
+
+            if (marcacao != null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict, "O mecânico possui marcações."));
+            }
+
             dc.Mecanicos.DeleteOnSubmit(mecanico);
 
             try
@@ -118,14 +125,13 @@ namespace SistemaGestaoOficina.Api.Controllers
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="novoVeiculo"></param>
+        /// Valida os dados do mecânico.
+        /// <param name="mecanico"></param>
+        /// <param name="idIgnorar"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        private string ValidaVeiculo(Mecanico mecanico, int idIgnorar = 0)
+        private string ValidaMecanico(Mecanico mecanico, int idIgnorar = 0)
         {
-            Mecanico mecanicoContacto = dc.Mecanicos.FirstOrDefault(m =>  m.Contacto == mecanico.Contacto && m.Id != idIgnorar);
+            Mecanico mecanicoContacto = dc.Mecanicos.FirstOrDefault(m => m.Contacto == mecanico.Contacto && m.Id != idIgnorar);
 
             if (mecanicoContacto != null)
             {

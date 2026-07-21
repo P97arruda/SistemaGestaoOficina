@@ -130,7 +130,7 @@ namespace SistemaGestaoOficina.Api.Controllers
             }
             catch (Exception e)
             {
-                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.NotFound, e));
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.ServiceUnavailable, e));
             }
 
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
@@ -138,20 +138,13 @@ namespace SistemaGestaoOficina.Api.Controllers
 
 
         /// <summary>
-        /// Validações 
+        /// Valida os dados do veiculo 
         /// </summary>
         /// <param name="cliente"></param>
         /// <param name="idIgnorar"></param>
         /// <returns></returns>
         private string ValidarCliente(Cliente cliente, int idIgnorar = 0)
         {
-            Cliente clienteId = dc.Clientes.FirstOrDefault(c => c.Id == cliente.Id && c.Id != idIgnorar);
-
-            if (clienteId != null)
-            {
-                return "Já existe um cliente com esse ID.";
-            }
-
             Cliente clienteContacto = dc.Clientes.FirstOrDefault(c => c.Contacto == cliente.Contacto && c.Id != idIgnorar);
 
             if (clienteContacto != null)

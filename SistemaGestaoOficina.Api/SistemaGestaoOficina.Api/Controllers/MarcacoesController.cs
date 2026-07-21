@@ -110,12 +110,19 @@ namespace SistemaGestaoOficina.Api.Controllers
 
             if (marcacao == null)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Marcação não encontrada"));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,"Marcação não encontrada"));
             }
 
             if (marcacao.Estado != "Pendente")
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,"Apenas marcações pendentes podem ser apagadas."));
+            }
+
+            Reparacoe reparacao = dc.Reparacoes.FirstOrDefault(r => r.IdMarcacao == id);
+
+            if (reparacao != null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,"A marcação possui uma reparação."));
             }
 
             dc.Marcacoes.DeleteOnSubmit(marcacao);
@@ -129,10 +136,15 @@ namespace SistemaGestaoOficina.Api.Controllers
                 return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.ServiceUnavailable, e));
             }
 
-            return ResponseMessage(
-                Request.CreateResponse(HttpStatusCode.OK));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
         }
 
+        /// <summary>
+        /// Valida dos da marcação 
+        /// </summary>
+        /// <param name="marcacao"></param>
+        /// <param name="idIgnorar"></param>
+        /// <returns></returns>
         private string ValidaMarcacao(Marcacoe marcacao, int idIgnorar = 0)
         {
             Cliente cliente = dc.Clientes.FirstOrDefault(c => c.Id == marcacao.IdCliente);
@@ -161,7 +173,7 @@ namespace SistemaGestaoOficina.Api.Controllers
                 return "O veículo não pertence ao cliente informado.";
             }
 
-            if (mecanico.Ativo == false)
+            if (!mecanico.Ativo)
             {
                 return "Não é possível atribuir uma marcação a um mecânico inativo.";
             }
