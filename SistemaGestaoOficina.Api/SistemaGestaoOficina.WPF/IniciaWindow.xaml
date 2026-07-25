@@ -1,0 +1,158 @@
+﻿<Window x:Class="SistemaGestaoOficina.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OficinaCET - Sistema de Gestão"
+        Height="700"
+        Width="1200"
+        MinHeight="550"
+        MinWidth="850"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F6F8">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Cabeçalho superior -->
+        <Border Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Background="#2D3748">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="25,0,0,0">
+
+                <TextBlock Text="🔧"
+                           FontSize="30"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,0,12,0"/>
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <TextBlock Text="OFICINACET"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+
+                    <TextBlock Text="OFICINA MECÂNICA"
+                               FontSize="10"
+                               Foreground="#CBD5E0"/>
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- Menu lateral -->
+        <Border Grid.Row="1"
+                Grid.Column="0"
+                Background="#1F2937">
+
+            <StackPanel Margin="15,25,15,0">
+
+                <Button Content="👤   Clientes"
+                        Height="50"
+                        Margin="0,0,0,5"
+                        FontSize="15"
+                        Foreground="White"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Left"
+                        Padding="18,0"/>
+
+                <Button Content="🚗   Veículos"
+                        Height="50"
+                        Margin="0,0,0,5"
+                        FontSize="15"
+                        Foreground="White"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Left"
+                        Padding="18,0"/>
+
+                <Button Content="🔧   Mecânicos"
+                        Height="50"
+                        Margin="0,0,0,5"
+                        FontSize="15"
+                        Foreground="White"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Left"
+                        Padding="18,0"/>
+
+                <Button Content="📅   Marcações"
+                        Height="50"
+                        Margin="0,0,0,5"
+                        FontSize="15"
+                        Foreground="White"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Left"
+                        Padding="18,0"/>
+
+                <Button Content="🛠   Reparações"
+                        Height="50"
+                        Margin="0,0,0,5"
+                        FontSize="15"
+                        Foreground="White"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Left"
+                        Padding="18,0"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- Área principal -->
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                Background="#F4F6F8"
+                Padding="35">
+
+            <Border Background="White"
+                    BorderBrush="#E5E7EB"
+                    BorderThickness="1"
+                    Padding="30">
+
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+                    <TextBlock Text="🔧"
+                               FontSize="80"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
+
+                    <TextBlock Text="OficinaCET"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Foreground="#1F2937"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="Sistema de Gestão de Oficina"
+                               FontSize="15"
+                               Foreground="#6B7280"
+                               Margin="0,8,0,0"
+                               HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </Border>
+
+    </Grid>
+
+</Window>
