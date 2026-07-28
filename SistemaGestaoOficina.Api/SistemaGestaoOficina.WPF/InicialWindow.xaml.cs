@@ -10,19 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SistemaGestaoOficina.WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for IniciaWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class InicialWindow : Window
     {
-        public MainWindow()
+        public InicialWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnClientes_Click(object sender, RoutedEventArgs e)
+        {
+            ClientesWindow clientesWindow = new ClientesWindow();
+
+            clientesWindow.ShowDialog();
         }
     }
 }
