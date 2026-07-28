@@ -105,7 +105,9 @@
                                  Grid.Row="1"
                                  Grid.Column="1"
                                  Height="32"
-                                 Margin="0,0,0,15"/>
+                                 Margin="0,0,0,15"
+                                 MaxLength="50"
+                                 PreviewTextInput="txtNome_PreviewTextInput"/>
 
                         <!-- Apelido -->
                         <TextBlock Grid.Row="2"
@@ -118,7 +120,9 @@
                                  Grid.Row="2"
                                  Grid.Column="1"
                                  Height="32"
-                                 Margin="0,0,0,15"/>
+                                 Margin="0,0,0,15"
+                                 MaxLength="50"
+                                 PreviewTextInput="txtNome_PreviewTextInput"/>
 
                         <!-- Contacto -->
                         <TextBlock Grid.Row="3"
@@ -131,7 +135,9 @@
                                  Grid.Row="3"
                                  Grid.Column="1"
                                  Height="32"
-                                 Margin="0,0,0,15"/>
+                                 Margin="0,0,0,15"
+                                 MaxLength="15"
+                                 PreviewTextInput="txtContacto_PreviewTextInput"/>
 
                         <!-- NIF -->
                         <TextBlock Grid.Row="4"
@@ -144,7 +150,9 @@
                                  Grid.Row="4"
                                  Grid.Column="1"
                                  Height="32"
-                                 Margin="0,0,0,15"/>
+                                 Margin="0,0,0,15"
+                                 MaxLength="9"
+                                 PreviewTextInput="txtNif_PreviewTextInput"/>
 
                         <!-- Email -->
                         <TextBlock Grid.Row="5"
@@ -156,7 +164,8 @@
                         <TextBox x:Name="txtEmail"
                                  Grid.Row="5"
                                  Grid.Column="1"
-                                 Height="32"/>
+                                 Height="32"
+                                 MaxLength="35"/>
 
                     </Grid>
 

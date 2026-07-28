@@ -104,7 +104,9 @@
                                        Margin="0,0,0,5"/>
 
                             <TextBox x:Name="txtContacto"
-                                     Height="32"/>
+                                     Height="32"
+                                     MaxLength="15"
+                                     PreviewTextInput="txtContacto_PreviewTextInput"/>
                         </StackPanel>
 
                         <!-- Nome -->
@@ -116,7 +118,9 @@
                                        Margin="0,0,0,5"/>
 
                             <TextBox x:Name="txtNome"
-                                     Height="32"/>
+                                     Height="32"
+                                     MaxLength="50"
+                                     PreviewTextInput="txtNome_PreviewTextInput"/>
                         </StackPanel>
 
                         <!-- NIF -->
@@ -125,10 +129,12 @@
                                     Margin="0,0,0,15">
 
                             <TextBlock Text="NIF"
-                                       Margin="0,0,0,5"/>
+                                    Margin="0,0,0,5"/>
 
                             <TextBox x:Name="txtNif"
-                                     Height="32"/>
+                                    Height="32"
+                                    MaxLength="9"
+                                    PreviewTextInput="txtNif_PreviewTextInput"/>
                         </StackPanel>
 
                         <!-- Apelido -->
@@ -138,9 +144,11 @@
                             <TextBlock Text="Apelido"
                                        Margin="0,0,0,5"/>
 
-                            <TextBox x:Name="txtApelido"
-                                     Height="32"/>
-                        </StackPanel>
+                                <TextBox x:Name="txtApelido"
+                                     Height="32"
+                                     MaxLength="50"
+                                     PreviewTextInput="txtNome_PreviewTextInput"/>
+                            </StackPanel>
 
                         <!-- Email -->
                         <StackPanel Grid.Row="2"
@@ -150,7 +158,9 @@
                                        Margin="0,0,0,5"/>
 
                             <TextBox x:Name="txtEmail"
-                                     Height="32"/>
+                                     Height="32"
+                                     MaxLength="50"/>
+                            
                         </StackPanel>
 
                     </Grid>
