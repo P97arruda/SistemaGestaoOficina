@@ -22,17 +22,30 @@ namespace SistemaGestaoOficina.WPF
     public partial class EditarClientesWindow : Window
     {
         private ApiService apiService;
+
+        private Cliente cliente;
+
+        private List<Veiculo> veiculos;
         public EditarClientesWindow(Cliente cliente)
         {
             InitializeComponent();
 
             apiService = new ApiService();
 
+            this.cliente = cliente;
+
             CarregarCliente(cliente);
+
+            LoadVeiculos();
 
         }
 
         #region Metodos 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cliente"></param>
         private void CarregarCliente(Cliente cliente)
         {
             txtId.Text = cliente.Id.ToString();
@@ -43,7 +56,36 @@ namespace SistemaGestaoOficina.WPF
             txtEmail.Text = cliente.Email;
         }
 
-        ///
+        /// <summary>
+        /// 
+        /// </summary>
+        private async void LoadVeiculos()
+        {
+            var response = await apiService.Get<Veiculo>(
+                "https://localhost:44390/",
+                "api/veiculos");
+
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show(response.Message, "Erro");
+                return;
+            }
+
+            List<Veiculo> todosVeiculos =
+                (List<Veiculo>)response.Result;
+
+            veiculos = todosVeiculos
+                .Where(v => v.IdCliente == cliente.Id)
+                .ToList();
+
+            dataGridVeiculos.ItemsSource = veiculos;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaWPF()
         {
             if (string.IsNullOrWhiteSpace(txtNome.Text) &&
@@ -354,6 +396,62 @@ namespace SistemaGestaoOficina.WPF
         private void txtNome_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(c => char.IsLetter(c) || c == ' ');
+        }
+
+        private void btnEditarVeiculo_Click(object sender, RoutedEventArgs e)
+        {
+            Veiculo veiculoSelecionado = dataGridVeiculos.SelectedItem as Veiculo;
+
+            if (veiculoSelecionado == null)
+            {
+                MessageBox.Show(
+                    "Selecione um veículo.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            EditarVeiculoWindow janela = new EditarVeiculoWindow(veiculoSelecionado);
+
+            janela.ShowDialog();
+
+            LoadVeiculos();
+        }
+
+        private async void btnApagarVeiculo_Click(object sender, RoutedEventArgs e)
+        {
+            Veiculo veiculoSelecionado = dataGridVeiculos.SelectedItem as Veiculo;
+
+            if (veiculoSelecionado == null)
+            {
+                MessageBox.Show("Selecione um veículo.", "Aviso");
+                return;
+            }
+
+            MessageBoxResult confirmar = MessageBox.Show(
+                "Tem certeza que deseja apagar este veículo?",
+                "Confirmação",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirmar == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            var response = await apiService.Delete("https://localhost:44390/", "api/veiculos/" + veiculoSelecionado.Id);
+
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show(response.Message, "Erro");
+                return;
+            }
+
+            MessageBox.Show("Veículo apagado com sucesso.", "Sucesso");
+
+            LoadVeiculos();
         }
     }
 }

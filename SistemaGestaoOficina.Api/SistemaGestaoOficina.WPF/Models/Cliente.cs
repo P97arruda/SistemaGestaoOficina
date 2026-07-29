@@ -20,5 +20,13 @@ namespace SistemaGestaoOficina.WPF.Models
 
         public string Email { get; set; }
 
+        public string NomeCompleto
+        {
+            get
+            {
+                return Nome + " " + Apelido;
+            }
+        }
+
     }
 }

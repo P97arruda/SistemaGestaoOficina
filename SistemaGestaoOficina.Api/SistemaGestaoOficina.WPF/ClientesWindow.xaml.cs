@@ -447,5 +447,14 @@ namespace SistemaGestaoOficina.WPF
         }
         #endregion
 
+        private void btnAdicionarCarro_Click(object sender, RoutedEventArgs e)
+        {
+            AdicionarVeiculoWindow adicionarVeiculoWindow = new AdicionarVeiculoWindow();
+
+            adicionarVeiculoWindow.ShowDialog();
+
+            LoadClientes();
+
+        }
     }
 }

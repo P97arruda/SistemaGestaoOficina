@@ -198,7 +198,7 @@
                             Content="Adicionar carro"
                             Width="130"
                             Height="35"
-                            Margin="0,0,10,10"/>
+                            Margin="0,0,10,10" Click="btnAdicionarCarro_Click"/>
 
                     <Button x:Name="btnGuardar"
                             Content="Guardar"

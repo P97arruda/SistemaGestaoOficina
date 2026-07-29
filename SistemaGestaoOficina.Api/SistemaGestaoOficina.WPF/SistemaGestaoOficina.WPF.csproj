@@ -58,8 +58,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdicionarVeiculoWindow.xaml.cs">
+      <DependentUpon>AdicionarVeiculoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditarVeiculoWindow.xaml.cs">
+      <DependentUpon>EditarVeiculoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\Combustivel.cs" />
+    <Compile Include="Enums\Especialidade.cs" />
+    <Compile Include="Enums\EstadoMarcacao.cs" />
+    <Compile Include="Enums\MarcaVeiculos.cs" />
+    <Compile Include="Enums\TipoServico.cs" />
+    <Compile Include="Models\Veiculo.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\NetworkService.cs" />
+    <Page Include="AdicionarVeiculoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ClientesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -72,6 +88,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="EditarVeiculoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InicialWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

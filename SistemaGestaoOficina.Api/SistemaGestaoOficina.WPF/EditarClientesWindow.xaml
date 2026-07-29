@@ -10,6 +10,10 @@
         Background="#F4F6F8">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="31*"/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -18,7 +22,7 @@
 
         <!-- Cabeçalho -->
         <Border Grid.Row="0"
-                Background="#2D3748">
+                Background="#2D3748" Grid.ColumnSpan="2">
 
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
@@ -42,7 +46,7 @@
 
         <!-- Conteúdo -->
         <Grid Grid.Row="1"
-              Margin="20">
+              Margin="20,20,20,20" Grid.ColumnSpan="2">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.1*"/>
@@ -183,7 +187,7 @@
                             Margin="0,0,10,10"
                             Background="#DC2626"
                             Foreground="White"
-                            BorderThickness="0"/>
+                            BorderThickness="0" Click="btnApagarVeiculo_Click"/>
 
                     <Button x:Name="btnCancelar"
                             Content="Cancelar"
@@ -195,7 +199,7 @@
                             Content="Editar veículo"
                             Width="130"
                             Height="35"
-                            Margin="0,0,10,10"/>
+                            Margin="0,0,10,10" Click="btnEditarVeiculo_Click"/>
 
                     <Button x:Name="btnGuardar"
                             Content="Guardar"
