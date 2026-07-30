@@ -41,8 +41,29 @@ namespace SistemaGestaoOficina.Api.Controllers
 
             if (erro != null)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict, erro));
+                return ResponseMessage(
+                    Request.CreateResponse(HttpStatusCode.Conflict, erro));
             }
+
+            Mecanico mecanico = dc.Mecanicos.FirstOrDefault(
+                m => m.Id == novaMarcacao.IdMecanico);
+
+            if (mecanico == null)
+            {
+                return ResponseMessage(
+                    Request.CreateResponse(
+                        HttpStatusCode.NotFound,
+                        "Mecânico não encontrado."));
+            }
+
+            if (mecanico.Ativo == false)
+            {
+                return ResponseMessage(
+                    Request.CreateResponse(
+                        HttpStatusCode.Conflict,
+                        "Não é possível criar uma marcação para um mecânico desativado."));
+            }
+
             dc.Marcacoes.InsertOnSubmit(novaMarcacao);
 
             try
@@ -51,7 +72,10 @@ namespace SistemaGestaoOficina.Api.Controllers
             }
             catch (Exception e)
             {
-                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.ServiceUnavailable, e));
+                return ResponseMessage(
+                    Request.CreateErrorResponse(
+                        HttpStatusCode.ServiceUnavailable,
+                        e));
             }
 
             return ResponseMessage(

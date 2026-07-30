@@ -53,6 +53,8 @@ namespace SistemaGestaoOficina.Api.Controllers
             {
                 return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.ServiceUnavailable, e));
             }
+
+          
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
         }
 
@@ -144,6 +146,14 @@ namespace SistemaGestaoOficina.Api.Controllers
             {
                 return "Já existe um mecânico com esse nome.";
             }
+
+            Cliente clienteContacto = dc.Clientes.FirstOrDefault(c => c.Contacto == mecanico.Contacto);
+
+            if (clienteContacto != null)
+            {
+                return "Já existe um cliente com esse contacto.";
+            }
+
 
             return null;
         } 

@@ -31,6 +31,10 @@ namespace SistemaGestaoOficina.WPF
             clientesWindow.ShowDialog();
         }
 
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MecanicosWindow mecanicosWindow = new MecanicosWindow();
+            mecanicosWindow.ShowDialog();
+        }
     }
 }

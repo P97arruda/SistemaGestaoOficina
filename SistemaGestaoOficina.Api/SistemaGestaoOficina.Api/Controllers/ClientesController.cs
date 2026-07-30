@@ -172,6 +172,13 @@ namespace SistemaGestaoOficina.Api.Controllers
                 }
             }
 
+            Mecanico mecanicoContacto = dc.Mecanicos.FirstOrDefault(m => m.Contacto == cliente.Contacto);
+
+            if (mecanicoContacto != null)
+            {
+                return "Já existe um mecânico com esse contacto.";
+            }
+
             return null;
         }
     }
