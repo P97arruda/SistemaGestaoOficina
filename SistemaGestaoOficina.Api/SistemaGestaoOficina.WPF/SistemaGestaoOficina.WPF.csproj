@@ -61,6 +61,12 @@
     <Compile Include="AdicionarVeiculoWindow.xaml.cs">
       <DependentUpon>AdicionarVeiculoWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AgendamentoWindow.xaml.cs">
+      <DependentUpon>AgendamentoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditarMarcacaoWindow.xaml.cs">
+      <DependentUpon>EditarMarcacaoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditarMecanicoWindow.xaml.cs">
       <DependentUpon>EditarMecanicoWindow.xaml</DependentUpon>
     </Compile>
@@ -75,11 +81,16 @@
     <Compile Include="MecanicosWindow.xaml.cs">
       <DependentUpon>MecanicosWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Marcacao.cs" />
     <Compile Include="Models\Mecanico.cs" />
     <Compile Include="Models\Veiculo.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\NetworkService.cs" />
     <Page Include="AdicionarVeiculoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AgendamentoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,6 +106,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="EditarMarcacaoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditarMecanicoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -178,6 +178,14 @@ namespace SistemaGestaoOficina.Api.Controllers
                 return "Cliente não encontrado.";
             }
 
+            var veiculoComMarcacaoPendente = dc.Marcacoes.FirstOrDefault(m => m.IdVeiculo == marcacao.IdVeiculo && m.Estado == "Pendente" && m.Id != idIgnorar);
+
+            if (veiculoComMarcacaoPendente != null)
+            {
+                return "Este veículo já possui uma marcação pendente.";
+            }
+
+
             Veiculo veiculo = dc.Veiculos.FirstOrDefault(v => v.Id == marcacao.IdVeiculo);
 
             if (veiculo == null)

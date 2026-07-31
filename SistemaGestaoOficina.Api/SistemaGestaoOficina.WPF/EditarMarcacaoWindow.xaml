@@ -1,0 +1,211 @@
+﻿<Window x:Class="SistemaGestaoOficina.WPF.EditarMarcacaoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="Editar Marcação"
+        Height="700"
+        Width="950"
+        MinHeight="620"
+        MinWidth="850"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F6F8">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <Border Grid.Row="0"
+                Background="#2D3748">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="25,0,0,0">
+
+                <TextBlock Text="📅"
+                           FontSize="28"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,0"/>
+
+                <TextBlock Text="Editar Marcação"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- Conteúdo -->
+        <Grid Grid.Row="1"
+              Margin="30">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="0.9*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Lado esquerdo -->
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Dados da marcação -->
+                <GroupBox Grid.Row="0"
+                          Header="Dados da marcação"
+                          FontWeight="Bold"
+                          Padding="20"
+                          Background="White">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Cliente -->
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="Cliente:"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,15"/>
+
+                        <TextBox x:Name="txtCliente"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Height="32"
+                                 Margin="0,0,0,15"
+                                 IsReadOnly="True"/>
+
+                        <!-- Veículo -->
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="Veículo:"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,15"/>
+
+                        <ComboBox x:Name="comboBoxVeiculo"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  Height="32"
+                                  Margin="0,0,0,15"
+                                  DisplayMemberPath="Matricula"/>
+
+                        <!-- Mecânico -->
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="Mecânico:"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,15"/>
+
+                        <ComboBox x:Name="comboBoxMecanico"
+                                  Grid.Row="2"
+                                  Grid.Column="1"
+                                  Height="32"
+                                  Margin="0,0,0,15"
+                                  DisplayMemberPath="Nome"
+                                  SelectionChanged="comboBoxMecanico_SelectionChanged"/>
+
+                        <!-- Tipo de serviço -->
+                        <TextBlock Grid.Row="3"
+                                   Grid.Column="0"
+                                   Text="Tipo de serviço:"
+                                   VerticalAlignment="Center"/>
+
+                        <ComboBox x:Name="comboBoxTipoServico"
+                                  Grid.Row="3"
+                                  Grid.Column="1"
+                                  Height="32"/>
+
+                    </Grid>
+
+                </GroupBox>
+
+                <!-- Horários -->
+                <GroupBox Grid.Row="2"
+                          Header="Horários disponíveis"
+                          FontWeight="Bold"
+                          Padding="10"
+                          Background="White">
+
+                    <ListBox x:Name="listBoxHorarios"/>
+
+                </GroupBox>
+
+                <!-- Botões -->
+                <WrapPanel Grid.Row="3"
+                           HorizontalAlignment="Center"
+                           Margin="0,20,0,0">
+
+                    <Button x:Name="btnCancelar"
+                            Content="Cancelar"
+                            Width="120"
+                            Height="38"
+                            Margin="0,0,12,0"
+                            Background="#DC2626"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="btnCancelar_Click"/>
+
+                    <Button x:Name="btnGuardar"
+                            Content="Guardar"
+                            Width="120"
+                            Height="38"
+                            Background="#2563EB"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="btnGuardar_Click"/>
+
+                </WrapPanel>
+
+            </Grid>
+
+            <!-- Lado direito -->
+            <GroupBox Grid.Column="2"
+                      Header="Data da marcação"
+                      FontWeight="Bold"
+                      Padding="20"
+                      Background="White"
+                      VerticalAlignment="Top">
+
+                <StackPanel>
+
+                    <Calendar x:Name="calendarMarcacao"
+                              HorizontalAlignment="Center"
+                              DisplayDateStart="{x:Static sys:DateTime.Today}"
+                              SelectedDatesChanged="calendarMarcacao_SelectedDatesChanged"/>
+
+                    <TextBlock Text="Selecione uma data e depois escolha um horário disponível."
+                               Margin="0,20,0,0"
+                               Foreground="#6B7280"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"/>
+
+                </StackPanel>
+
+            </GroupBox>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

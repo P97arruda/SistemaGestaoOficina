@@ -192,7 +192,7 @@
                             Content="Marcação"
                             Width="110"
                             Height="35"
-                            Margin="0,0,10,10"/>
+                            Margin="0,0,10,10" Click="btnMarcacao_Click"/>
 
                     <Button x:Name="btnAdicionarCarro"
                             Content="Adicionar carro"
@@ -256,7 +256,8 @@
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
                           SelectionMode="Single"
-                          CanUserAddRows="False">
+                          CanUserAddRows="False"
+                          SelectionChanged="dataGridClientes_SelectionChanged">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id"
@@ -335,19 +336,24 @@
                               SelectionMode="Single"
                               CanUserAddRows="False">
 
+
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="Data"
-                                                Binding="{Binding DataHora}"
-                                                Width="*"/>
+                            <DataGridTextColumn Header="Matrícula"
+                                                Binding="{Binding Matricula}"
+                                                Width="120"/>
 
                             <DataGridTextColumn Header="Serviço"
                                                 Binding="{Binding TipoServico}"
                                                 Width="*"/>
 
+                            <DataGridTextColumn Header="Data"
+                                                Binding="{Binding DataHora}"
+                                                Width="170"/>
+
                             <DataGridTextColumn Header="Estado"
                                                 Binding="{Binding Estado}"
-                                                Width="*"/>
+                                                Width="120"/>
 
                         </DataGrid.Columns>
 
@@ -367,12 +373,12 @@
                             Margin="0,0,10,0"
                             Background="#DC2626"
                             Foreground="White"
-                            BorderThickness="0"/>
+                            BorderThickness="0" Click="btnCancelarMarcacao_Click"/>
 
                     <Button x:Name="btnEditarMarcacao"
                             Content="Editar marcação"
                             Width="140"
-                            Height="35"/>
+                            Height="35" Click="btnEditarMarcacao_Click"/>
 
                 </WrapPanel>
 

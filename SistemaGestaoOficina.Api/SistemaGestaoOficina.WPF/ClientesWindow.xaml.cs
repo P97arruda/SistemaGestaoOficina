@@ -22,6 +22,12 @@ namespace SistemaGestaoOficina.WPF
 
         private List<Cliente> clientes;
 
+        private List<Marcacao> Marcacoes;
+
+        private List<Marcacao> TodasMarcacoes;
+
+        private List<Veiculo> Veiculos;
+
         #endregion
 
         public ClientesWindow()
@@ -32,8 +38,17 @@ namespace SistemaGestaoOficina.WPF
 
             apiService = new ApiService();
 
+            Marcacoes = new List<Marcacao>();
+
+            TodasMarcacoes = new List<Marcacao>();
+
+            Veiculos = new List<Veiculo>();
+
             LoadClientes();
 
+            CarregarVeiculos();
+            
+          
         }
 
         #region Métodos
@@ -62,6 +77,14 @@ namespace SistemaGestaoOficina.WPF
             clientes = (List<Cliente>)response.Result;
 
             dataGridClientes.ItemsSource = clientes;
+
+            if (clientes.Count > 0)
+            {
+                dataGridClientes.SelectedIndex = 0;
+
+                CarregarMarcacoes();
+            }
+
         }
 
         /// <summary>
@@ -455,6 +478,180 @@ namespace SistemaGestaoOficina.WPF
 
             LoadClientes();
 
+        }
+
+        private void btnMarcacao_Click(object sender, RoutedEventArgs e)
+        {
+            Cliente clienteSelecionado = dataGridClientes.SelectedItem as Cliente;
+
+            if (clienteSelecionado == null)
+            {
+                MessageBox.Show(
+                    "Selecione um cliente.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            AgendamentoWindow janela = new AgendamentoWindow(clienteSelecionado);
+
+            janela.ShowDialog();
+        }
+
+        private async void CarregarMarcacoes()
+        {
+            var response = await apiService.Get<Marcacao>("https://localhost:44390/", "api/marcacoes");
+
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show(response.Message, "Erro");
+                return;
+            }
+
+            TodasMarcacoes = (List<Marcacao>)response.Result;
+
+            MostrarMarcacoesCliente();
+        }
+
+        private void MostrarMarcacoesCliente()
+        {
+            if (dataGridClientes.SelectedItem == null)
+            {
+                dataGridMarcacoes.ItemsSource = null;
+                return;
+            }
+
+            Cliente clienteSelecionado = (Cliente)dataGridClientes.SelectedItem;
+
+            Marcacoes = TodasMarcacoes.Where(m => m.IdCliente == clienteSelecionado.Id).ToList();
+
+            foreach (Marcacao marcacao in Marcacoes)
+            {
+                Veiculo veiculo = Veiculos
+                    .FirstOrDefault(v => v.Id == marcacao.IdVeiculo);
+
+                if (veiculo != null)
+                {
+                    marcacao.Matricula = veiculo.Matricula;
+                }
+            }
+
+            dataGridMarcacoes.ItemsSource = null;
+            dataGridMarcacoes.ItemsSource = Marcacoes;
+        }
+
+        private void dataGridClientes_SelectionChanged(object sender,SelectionChangedEventArgs e)
+        {
+            MostrarMarcacoesCliente();
+        }
+
+        private async void CarregarVeiculos()
+        {
+            var response = await apiService.Get<Veiculo>("https://localhost:44390/", "api/veiculos");
+
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show(response.Message, "Erro");
+                return;
+            }
+
+            Veiculos = (List<Veiculo>)response.Result;
+        }
+
+        private async void btnCancelarMarcacao_Click(object sender, RoutedEventArgs e)
+        {
+            Marcacao marcacaoSelecionada =
+        dataGridMarcacoes.SelectedItem as Marcacao;
+
+            if (marcacaoSelecionada == null)
+            {
+                MessageBox.Show(
+                    "Selecione uma marcação.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            if (marcacaoSelecionada.Estado != "Pendente")
+            {
+                MessageBox.Show(
+                    "Só é possível cancelar marcações pendentes.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            MessageBoxResult confirmar = MessageBox.Show(
+                "Tem certeza que deseja cancelar esta marcação?",
+                "Confirmação",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirmar == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            var response = await apiService.Delete("https://localhost:44390/", "api/marcacoes/" + marcacaoSelecionada.Id);
+
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show(
+                    response.Message,
+                    "Erro",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                return;
+            }
+
+            MessageBox.Show(
+                "Marcação cancelada com sucesso.",
+                "Sucesso",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            CarregarMarcacoes();
+        }
+
+        private void btnEditarMarcacao_Click(object sender, RoutedEventArgs e)
+        {
+            Marcacao marcacaoSelecionada =
+        dataGridMarcacoes.SelectedItem as Marcacao;
+
+            if (marcacaoSelecionada == null)
+            {
+                MessageBox.Show(
+                    "Selecione uma marcação.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            if (marcacaoSelecionada.Estado != "Pendente")
+            {
+                MessageBox.Show(
+                    "Apenas marcações pendentes podem ser editadas.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            EditarMarcacaoWindow janela = new EditarMarcacaoWindow(marcacaoSelecionada);
+
+            janela.ShowDialog();
+
+            CarregarMarcacoes();
         }
     }
 }
