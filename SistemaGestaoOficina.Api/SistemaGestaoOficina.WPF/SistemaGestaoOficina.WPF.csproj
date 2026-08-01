@@ -83,7 +83,11 @@
     </Compile>
     <Compile Include="Models\Marcacao.cs" />
     <Compile Include="Models\Mecanico.cs" />
+    <Compile Include="Models\Reparacao.cs" />
     <Compile Include="Models\Veiculo.cs" />
+    <Compile Include="ReparacoesWindow.xaml.cs">
+      <DependentUpon>ReparacoesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\NetworkService.cs" />
     <Page Include="AdicionarVeiculoWindow.xaml">
@@ -123,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MecanicosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReparacoesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

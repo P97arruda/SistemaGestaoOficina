@@ -61,6 +61,9 @@ namespace SistemaGestaoOficina.WPF
             CarregarDados();
         }
 
+        /// <summary>
+        /// Carrega os dados da marcação para edição.
+        /// </summary>
         private void CarregarDados()
         {
             comboBoxTipoServico.ItemsSource = Enum.GetValues(typeof(TipoServico));
@@ -90,6 +93,10 @@ namespace SistemaGestaoOficina.WPF
             CarregarMarcacoes();
         }
 
+        /// <summary>
+        /// Carrega todas as marcações da API.
+        /// </summary>
+        /// <returns></returns>
         private async Task CarregarMarcacoes()
         {
             var response = await apiService.Get<Marcacao>("https://localhost:44390/", "api/marcacoes");
@@ -109,6 +116,9 @@ namespace SistemaGestaoOficina.WPF
             CarregarHorariosDisponiveis();
         }
 
+        /// <summary>
+        /// Carrega os horários disponíveis para a marcação.
+        /// </summary>
         private void CarregarHorariosDisponiveis()
         {
             if (calendarMarcacao.SelectedDate == null)
@@ -160,6 +170,10 @@ namespace SistemaGestaoOficina.WPF
                 marcacao.DataHora.ToString("HH:mm");
         }
 
+        /// <summary>
+        /// Carrega os mecânicos ativos da API.
+        /// </summary>
+        /// <returns></returns>
         private async Task CarregarMecanicos()
         {
             var response = await apiService.Get<Mecanico>("https://localhost:44390/", "api/mecanicos");
@@ -189,6 +203,10 @@ namespace SistemaGestaoOficina.WPF
                 .FirstOrDefault(m => m.Id == marcacao.IdMecanico);
         }
 
+        /// <summary>
+        /// Carrega os veículos do cliente da marcação.
+        /// </summary>
+        /// <returns></returns>
         private async Task CarregarVeiculos()
         {
             var response = await apiService.Get<Veiculo>("https://localhost:44390/", "api/veiculos");
@@ -218,6 +236,10 @@ namespace SistemaGestaoOficina.WPF
                 .FirstOrDefault(v => v.Id == marcacao.IdVeiculo);
         }
 
+        /// <summary>
+        /// Carrega os dados do cliente da marcação.
+        /// </summary>
+        /// <returns></returns>
         private async Task CarregarClientes()
         {
             var response = await apiService.Get<Cliente>("https://localhost:44390/", "api/clientes");
@@ -244,16 +266,30 @@ namespace SistemaGestaoOficina.WPF
             }
         }
 
+        /// <summary>
+        /// Atualiza os horários quando muda o mecânico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxMecanico_SelectionChanged(object sender,SelectionChangedEventArgs e)
         {
             CarregarHorariosDisponiveis();
         }
 
+        /// <summary>
+        /// Atualiza os horários quando muda a data da marcação.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void calendarMarcacao_SelectedDatesChanged(object sender,SelectionChangedEventArgs e)
         {
             CarregarHorariosDisponiveis();
         }
 
+        /// <summary>
+        /// Verifica se os dados da marcação são válidos.
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaWPF()
         {
             if (comboBoxVeiculo.SelectedItem == null)
@@ -315,6 +351,7 @@ namespace SistemaGestaoOficina.WPF
             return true;
         }
 
+       
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidaWPF())
@@ -362,13 +399,7 @@ namespace SistemaGestaoOficina.WPF
 
                 return;
             }
-
-            MessageBox.Show(
-    "Id: " + marcacao.Id +
-    "\nIdCliente: " + marcacao.IdCliente +
-    "\nIdVeiculo: " + marcacao.IdVeiculo +
-    "\nEstado: " + marcacao.Estado);
-
+            
             var response = await apiService.Put( "https://localhost:44390/", "api/marcacoes/" + marcacao.Id, marcacao);
 
             if (!response.IsSuccess)
