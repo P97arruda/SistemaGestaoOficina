@@ -79,7 +79,8 @@
                                    Margin="0,0,0,5"/>
 
                         <ComboBox x:Name="comboBoxMarcacao"
-                                  Height="32"/>
+                                  Height="32"
+                                  SelectionChanged="comboBoxMarcacao_SelectionChanged"/>
 
                     </StackPanel>
 
@@ -99,7 +100,8 @@
                                        Margin="0,0,0,5"/>
 
                             <TextBox x:Name="txtPeca"
-                                     Height="32"/>
+                                     Height="32"
+                                     PreviewTextInput="txtPeca_PreviewTextInput"/>
 
                         </StackPanel>
 
@@ -109,7 +111,8 @@
                                        Margin="0,0,0,5"/>
 
                             <TextBox x:Name="txtValorPeca"
-                                     Height="32"/>
+                                     Height="32"
+                                     PreviewTextInput="txtValorPeca_PreviewTextInput"/>
 
                         </StackPanel>
 
@@ -127,7 +130,9 @@
                                 Margin="0,0,10,0"
                                 Background="#DC2626"
                                 Foreground="White"
-                                BorderThickness="0"/>
+                                BorderThickness="0" 
+                                Click="btnRemoverPeca_Click"/>
+                                
 
                         <Button x:Name="btnAdicionarPeca"
                                 Content="Adicionar"
@@ -135,7 +140,8 @@
                                 Height="32"
                                 Background="#2563EB"
                                 Foreground="White"
-                                BorderThickness="0"/>
+                                BorderThickness="0" 
+                                Click="btnAdicionarPeca_Click"/>
 
                     </StackPanel>
 
@@ -201,7 +207,7 @@
                                 Margin="0,0,10,0"
                                 Background="#DC2626"
                                 Foreground="White"
-                                BorderThickness="0"/>
+                                BorderThickness="0" Click="btnRemoverMecanico_Click"/>
 
                         <Button x:Name="btnAdicionarMecanico"
                                 Content="Adicionar"
@@ -209,7 +215,7 @@
                                 Height="32"
                                 Background="#2563EB"
                                 Foreground="White"
-                                BorderThickness="0"/>
+                                BorderThickness="0" Click="btnAdicionarMecanico_Click"/>
 
                     </StackPanel>
 
@@ -290,7 +296,8 @@
                                 HorizontalAlignment="Left"
                                 Background="#2563EB"
                                 Foreground="White"
-                                BorderThickness="0"/>
+                                BorderThickness="0" 
+                                Click="btnConcluir_Click"/>
 
                     </StackPanel>
 

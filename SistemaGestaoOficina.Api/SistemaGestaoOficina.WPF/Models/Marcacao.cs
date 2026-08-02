@@ -23,5 +23,15 @@ namespace SistemaGestaoOficina.WPF.Models
         public string Estado { get; set; }
 
         public string Matricula { get; set; }
+
+        public string NomeCliente { get; set; }
+
+        public override string ToString()
+        {
+            return NomeCliente + " | " +
+                   Matricula + " | " +
+                   TipoServico + " | " +
+                   DataHora.ToString("dd/MM/yyyy HH:mm");
+        }
     }
 }

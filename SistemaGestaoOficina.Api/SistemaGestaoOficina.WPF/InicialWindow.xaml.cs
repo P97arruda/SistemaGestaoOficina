@@ -36,5 +36,11 @@ namespace SistemaGestaoOficina.WPF
             MecanicosWindow mecanicosWindow = new MecanicosWindow();
             mecanicosWindow.ShowDialog();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ReparacoesWindow reparacoesWindow = new ReparacoesWindow();
+            reparacoesWindow.ShowDialog();
+        }
     }
 }

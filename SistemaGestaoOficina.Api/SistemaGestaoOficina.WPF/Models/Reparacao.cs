@@ -23,5 +23,23 @@ namespace SistemaGestaoOficina.WPF.Models
         public bool Concluida { get; set; }
 
         public string TipoServico { get; set; }
+
+        public string NomeCliente { get; set; }
+
+        public string Matricula { get; set; }
+
+        public string ModeloVeiculo { get; set; }
+
+        public override string ToString()
+        {
+            return NomeCliente + " | " +
+                   ModeloVeiculo + " | " +
+                   Matricula + " | " +
+                   TipoServico + " | " +
+                   CustoTotal.ToString("0.00") + "€ | " +
+                   DataInicio.ToString("dd/MM/yyyy") + " - " +
+                   DataFim.Value.ToString("dd/MM/yyyy");
+        }
+
     }
 }
