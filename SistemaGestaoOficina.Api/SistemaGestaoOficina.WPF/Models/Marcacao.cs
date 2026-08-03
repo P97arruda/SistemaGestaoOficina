@@ -39,7 +39,8 @@ namespace SistemaGestaoOficina.WPF.Models
              ModeloVeiculo + " | " +
              Matricula + " | " +
              TipoServico + " | " +
-             DataHora.ToString("dd/MM/yyyy HH:mm");
+             DataHora.ToString("dd/MM/yyyy HH:mm") + " | " +
+             Estado;
         }
     }
 }

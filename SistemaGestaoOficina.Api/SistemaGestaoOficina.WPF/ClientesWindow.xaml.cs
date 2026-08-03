@@ -2,7 +2,6 @@
 using SistemaGestaoOficina.WPF.Services;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -47,8 +46,6 @@ namespace SistemaGestaoOficina.WPF
             LoadClientes();
 
             CarregarVeiculos();
-            
-          
         }
 
         #region Métodos
@@ -495,9 +492,12 @@ namespace SistemaGestaoOficina.WPF
                 return;
             }
 
-            AgendamentoWindow janela = new AgendamentoWindow(clienteSelecionado);
+            AgendamentoWindow janela =
+                new AgendamentoWindow(clienteSelecionado);
 
             janela.ShowDialog();
+
+            CarregarMarcacoes();
         }
 
         private async void CarregarMarcacoes()
@@ -519,30 +519,43 @@ namespace SistemaGestaoOficina.WPF
         {
             if (dataGridClientes.SelectedItem == null)
             {
-                dataGridMarcacoes.ItemsSource = null;
+                listBoxMarcacoes.ItemsSource = null;
+
                 return;
             }
 
-            Cliente clienteSelecionado = (Cliente)dataGridClientes.SelectedItem;
+            Cliente clienteSelecionado =
+                (Cliente)dataGridClientes.SelectedItem;
 
-            Marcacoes = TodasMarcacoes.Where(m => m.IdCliente == clienteSelecionado.Id).ToList();
+            Marcacoes = TodasMarcacoes
+                .Where(m => m.IdCliente == clienteSelecionado.Id)
+                .ToList();
 
             foreach (Marcacao marcacao in Marcacoes)
             {
+                marcacao.NomeCliente =
+                    clienteSelecionado.Nome + " " +
+                    clienteSelecionado.Apelido;
+
                 Veiculo veiculo = Veiculos
                     .FirstOrDefault(v => v.Id == marcacao.IdVeiculo);
 
                 if (veiculo != null)
                 {
+                    marcacao.MarcaVeiculo = veiculo.Marca;
+
+                    marcacao.ModeloVeiculo = veiculo.Modelo;
+
                     marcacao.Matricula = veiculo.Matricula;
                 }
             }
 
-            dataGridMarcacoes.ItemsSource = null;
-            dataGridMarcacoes.ItemsSource = Marcacoes;
+            listBoxMarcacoes.ItemsSource = null;
+
+            listBoxMarcacoes.ItemsSource = Marcacoes;
         }
 
-        private void dataGridClientes_SelectionChanged(object sender,SelectionChangedEventArgs e)
+        private void dataGridClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MostrarMarcacoesCliente();
         }
@@ -558,12 +571,13 @@ namespace SistemaGestaoOficina.WPF
             }
 
             Veiculos = (List<Veiculo>)response.Result;
+
+            CarregarMarcacoes();
         }
 
         private async void btnCancelarMarcacao_Click(object sender, RoutedEventArgs e)
         {
-            Marcacao marcacaoSelecionada =
-        dataGridMarcacoes.SelectedItem as Marcacao;
+            Marcacao marcacaoSelecionada = listBoxMarcacoes.SelectedItem as Marcacao;
 
             if (marcacaoSelecionada == null)
             {
@@ -622,8 +636,7 @@ namespace SistemaGestaoOficina.WPF
 
         private void btnEditarMarcacao_Click(object sender, RoutedEventArgs e)
         {
-            Marcacao marcacaoSelecionada =
-        dataGridMarcacoes.SelectedItem as Marcacao;
+            Marcacao marcacaoSelecionada = listBoxMarcacoes.SelectedItem as Marcacao;
 
             if (marcacaoSelecionada == null)
             {
@@ -652,6 +665,126 @@ namespace SistemaGestaoOficina.WPF
             janela.ShowDialog();
 
             CarregarMarcacoes();
+        }
+
+        private void btnPesquisarCliente_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (string.IsNullOrWhiteSpace(txtPesquisarCliente.Text))
+            {
+                dataGridClientes.ItemsSource = null;
+
+                dataGridClientes.ItemsSource = clientes;
+
+                return;
+            }
+
+            string pesquisa = txtPesquisarCliente.Text
+                .ToLower()
+                .Trim();
+
+            List<Cliente> clientesFiltrados = clientes
+                .Where(c =>
+
+                    c.Id.ToString().Contains(pesquisa) ||
+
+                    (!string.IsNullOrEmpty(c.Nome) &&
+                     c.Nome.ToLower().Contains(pesquisa)) ||
+
+                    (!string.IsNullOrEmpty(c.Apelido) &&
+                     c.Apelido.ToLower().Contains(pesquisa)) ||
+
+                    (!string.IsNullOrEmpty(c.Contacto) &&
+                     c.Contacto.ToLower().Contains(pesquisa)) ||
+
+                    (!string.IsNullOrEmpty(c.NIF) &&
+                     c.NIF.ToLower().Contains(pesquisa)) ||
+
+                    (!string.IsNullOrEmpty(c.Email) &&
+                     c.Email.ToLower().Contains(pesquisa)))
+                .ToList();
+
+            dataGridClientes.ItemsSource = null;
+
+            dataGridClientes.ItemsSource = clientesFiltrados;
+
+        }
+
+        private void btnPesquisarMarcacao_Click(object sender, RoutedEventArgs e)
+        {
+
+            Cliente clienteSelecionado =
+       dataGridClientes.SelectedItem as Cliente;
+
+            if (clienteSelecionado == null)
+            {
+                MessageBox.Show(
+                    "Selecione um cliente.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            List<Marcacao> listaMarcacoes = TodasMarcacoes
+                .Where(m => m.IdCliente == clienteSelecionado.Id)
+                .ToList();
+
+            foreach (Marcacao marcacao in listaMarcacoes)
+            {
+                marcacao.NomeCliente =
+                    clienteSelecionado.Nome + " " +
+                    clienteSelecionado.Apelido;
+
+                Veiculo veiculo = Veiculos
+                    .FirstOrDefault(v => v.Id == marcacao.IdVeiculo);
+
+                if (veiculo != null)
+                {
+                    marcacao.MarcaVeiculo = veiculo.Marca;
+
+                    marcacao.ModeloVeiculo = veiculo.Modelo;
+
+                    marcacao.Matricula = veiculo.Matricula;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtPesquisarMarcacao.Text))
+            {
+                string pesquisa = txtPesquisarMarcacao.Text
+                    .ToLower()
+                    .Trim();
+
+                listaMarcacoes = listaMarcacoes
+                    .Where(m =>
+                        (!string.IsNullOrEmpty(m.NomeCliente) &&
+                         m.NomeCliente.ToLower().Contains(pesquisa)) ||
+
+                        (!string.IsNullOrEmpty(m.MarcaVeiculo) &&
+                         m.MarcaVeiculo.ToLower().Contains(pesquisa)) ||
+
+                        (!string.IsNullOrEmpty(m.ModeloVeiculo) &&
+                         m.ModeloVeiculo.ToLower().Contains(pesquisa)) ||
+
+                        (!string.IsNullOrEmpty(m.Matricula) &&
+                         m.Matricula.ToLower().Contains(pesquisa)) ||
+
+                        (!string.IsNullOrEmpty(m.TipoServico) &&
+                         m.TipoServico.ToLower().Contains(pesquisa)) ||
+
+                        (!string.IsNullOrEmpty(m.Estado) &&
+                         m.Estado.ToLower().Contains(pesquisa)) ||
+
+                        m.DataHora
+                            .ToString("dd/MM/yyyy HH:mm")
+                            .Contains(pesquisa))
+                    .ToList();
+            }
+
+            listBoxMarcacoes.ItemsSource = null;
+
+            listBoxMarcacoes.ItemsSource = listaMarcacoes;
         }
     }
 }

@@ -144,11 +144,11 @@
                             <TextBlock Text="Apelido"
                                        Margin="0,0,0,5"/>
 
-                                <TextBox x:Name="txtApelido"
+                            <TextBox x:Name="txtApelido"
                                      Height="32"
                                      MaxLength="50"
                                      PreviewTextInput="txtNome_PreviewTextInput"/>
-                            </StackPanel>
+                        </StackPanel>
 
                         <!-- Email -->
                         <StackPanel Grid.Row="2"
@@ -160,7 +160,7 @@
                             <TextBox x:Name="txtEmail"
                                      Height="32"
                                      MaxLength="50"/>
-                            
+
                         </StackPanel>
 
                     </Grid>
@@ -244,7 +244,7 @@
                                 Grid.Column="2"
                                 Content="🔍"
                                 Height="32"
-                                Margin="5,0,0,0"/>
+                                Margin="5,0,0,0" Click="btnPesquisarCliente_Click"/>
                     </Grid>
 
                 </Grid>
@@ -319,8 +319,7 @@
                     <Button x:Name="btnPesquisarMarcacao"
                             Grid.Column="2"
                             Content="🔍"
-                            Height="32"
-                            Margin="5,0,0,0"/>
+                            Margin="5,0,0,0" HorizontalAlignment="Left" Width="40" Click="btnPesquisarMarcacao_Click"/>
 
                 </Grid>
 
@@ -328,36 +327,12 @@
                 <GroupBox Grid.Row="1"
                           Header="Marcações"
                           FontWeight="Bold"
-                          Background="White">
+                          Background="White"
+                          Padding="10">
 
-                    <DataGrid x:Name="dataGridMarcacoes"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              SelectionMode="Single"
-                              CanUserAddRows="False">
-
-
-                        <DataGrid.Columns>
-
-                            <DataGridTextColumn Header="Matrícula"
-                                                Binding="{Binding Matricula}"
-                                                Width="120"/>
-
-                            <DataGridTextColumn Header="Serviço"
-                                                Binding="{Binding TipoServico}"
-                                                Width="*"/>
-
-                            <DataGridTextColumn Header="Data"
-                                                Binding="{Binding DataHora}"
-                                                Width="170"/>
-
-                            <DataGridTextColumn Header="Estado"
-                                                Binding="{Binding Estado}"
-                                                Width="120"/>
-
-                        </DataGrid.Columns>
-
-                    </DataGrid>
+                    <ListBox x:Name="listBoxMarcacoes"
+             FontSize="14"
+             HorizontalContentAlignment="Stretch"/>
 
                 </GroupBox>
 
