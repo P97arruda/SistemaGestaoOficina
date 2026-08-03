@@ -78,6 +78,9 @@
     <Compile Include="Enums\EstadoMarcacao.cs" />
     <Compile Include="Enums\MarcaVeiculos.cs" />
     <Compile Include="Enums\TipoServico.cs" />
+    <Compile Include="MarcacoesWindow.xaml.cs">
+      <DependentUpon>MarcacoesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MecanicosWindow.xaml.cs">
       <DependentUpon>MecanicosWindow.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InicialWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MarcacoesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

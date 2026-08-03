@@ -1,0 +1,132 @@
+﻿<Window x:Class="SistemaGestaoOficina.WPF.MarcacoesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Consulta de Marcações"
+        Height="720"
+        Width="1100"
+        MinHeight="600"
+        MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F6F8">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <Border Grid.Row="0"
+                Background="#2D3748">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="25,0,0,0">
+
+                <TextBlock Text="📅"
+                           FontSize="28"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,0"/>
+
+                <TextBlock Text="Consulta de Marcações"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- Conteúdo -->
+        <Grid Grid.Row="1"
+              Margin="25">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="0.9*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Lado esquerdo -->
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Pesquisa -->
+                <GroupBox Grid.Row="0"
+                          Header="Pesquisar marcação"
+                          FontWeight="Bold"
+                          Background="White"
+                          Padding="15">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="45"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="txtPesquisarMarcacao"
+                                 Grid.Column="0"
+                                 Height="32"/>
+
+                        <Button x:Name="btnPesquisarMarcacao"
+                                Grid.Column="2"
+                                Width="45"
+                                Height="32"
+                                Content="🔍"
+                                Background="#2563EB"
+                                Foreground="White"
+                                BorderThickness="0" HorizontalAlignment="Left" Click="btnPesquisarMarcacao_Click"/>
+
+                    </Grid>
+
+                </GroupBox>
+
+                <!-- Total -->
+                <TextBlock x:Name="lblTotalMarcacoes"
+                           Grid.Row="2"
+                           Text="Total: 0 marcações"
+                           FontWeight="Bold"
+                           FontSize="14"/>
+
+                <!-- Lista de marcações -->
+                <GroupBox Grid.Row="4"
+                          Header="Marcações"
+                          FontWeight="Bold"
+                          Background="White"
+                          Padding="10">
+
+                    <ListBox x:Name="listBoxMarcacoes"
+                             SelectionChanged="listBoxMarcacoes_SelectionChanged"/>
+
+                </GroupBox>
+
+            </Grid>
+
+            <!-- Lado direito -->
+            <GroupBox Grid.Column="2"
+                      Header="Detalhes da marcação"
+                      FontWeight="Bold"
+                      Background="White"
+                      Padding="10">
+
+                <ListBox x:Name="listBoxDetalhesMarcacao"/>
+
+            </GroupBox>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

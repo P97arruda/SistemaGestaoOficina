@@ -42,5 +42,11 @@ namespace SistemaGestaoOficina.WPF
             ReparacoesWindow reparacoesWindow = new ReparacoesWindow();
             reparacoesWindow.ShowDialog();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MarcacoesWindow marcacoesWindow = new MarcacoesWindow();
+            marcacoesWindow.ShowDialog();
+        }
     }
 }

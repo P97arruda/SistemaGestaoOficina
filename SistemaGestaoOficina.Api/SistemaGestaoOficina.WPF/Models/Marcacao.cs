@@ -30,6 +30,8 @@ namespace SistemaGestaoOficina.WPF.Models
 
         public string MarcaVeiculo { get; set; }
 
+        public string NomeMecanico { get; set; }
+
         public override string ToString()
         {
             return NomeCliente + " | " +

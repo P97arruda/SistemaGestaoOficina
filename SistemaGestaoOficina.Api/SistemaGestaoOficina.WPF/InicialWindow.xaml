@@ -101,7 +101,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         HorizontalContentAlignment="Left"
-                        Padding="18,0"/>
+                        Padding="18,0" Click="Button_Click_2"/>
 
                 <Button Content="🛠   Reparações"
                         Height="50"
