@@ -81,7 +81,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         HorizontalContentAlignment="Left"
-                        Padding="18,0"/>
+                        Padding="18,0" Click="Button_Click_3"/>
 
                 <Button Content="🔧   Mecânicos"
                         Height="50"

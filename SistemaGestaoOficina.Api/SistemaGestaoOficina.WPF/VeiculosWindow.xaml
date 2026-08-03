@@ -1,0 +1,157 @@
+﻿<Window x:Class="SistemaGestaoOficina.WPF.VeiculosWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Consulta de Veículos"
+        Height="720"
+        Width="1150"
+        MinHeight="600"
+        MinWidth="950"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F6F8">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <Border Grid.Row="0"
+                Background="#2D3748">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="25,0,0,0">
+
+                <TextBlock Text="🚗"
+                           FontSize="28"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,0"/>
+
+                <TextBlock Text="Consulta de Veículos"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- Conteúdo -->
+        <Grid Grid.Row="1"
+              Margin="25">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.15*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="0.85*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Lado esquerdo -->
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Pesquisa -->
+                <GroupBox Grid.Row="0"
+                          Header="Pesquisar veículo"
+                          FontWeight="Bold"
+                          Background="White"
+                          Padding="15">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="45"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="txtPesquisarVeiculo"
+                                 Grid.Column="0"
+                                 Height="32"/>
+
+                        <Button x:Name="btnPesquisarVeiculo"
+                                Grid.Column="1"
+                                Width="45"
+                                Height="32"
+                                Content="🔍"
+                                Background="#2563EB"
+                                Foreground="White"
+                                BorderThickness="0" Grid.ColumnSpan="2" Margin="10,0,0,0" VerticalAlignment="Top" Click="btnPesquisarVeiculo_Click"/>
+
+                    </Grid>
+
+                </GroupBox>
+
+                <!-- Total -->
+                <TextBlock x:Name="lblTotalVeiculos"
+                           Grid.Row="2"
+                           Text="Total: 0 veículos"
+                           FontWeight="Bold"
+                           FontSize="14"/>
+
+                <!-- Lista de veículos -->
+                <GroupBox Grid.Row="4"
+                          Header="Veículos"
+                          FontWeight="Bold"
+                          Background="White"
+                          Padding="10">
+
+                    <ListBox x:Name="listBoxVeiculos"
+                             FontSize="14"
+                             SelectionChanged="listBoxVeiculos_SelectionChanged"/>
+
+                </GroupBox>
+
+            </Grid>
+
+            <!-- Lado direito -->
+            <Grid Grid.Column="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Detalhes -->
+                <GroupBox Grid.Row="0"
+                          Header="Detalhes do veículo"
+                          FontWeight="Bold"
+                          Background="White"
+                          Padding="10">
+
+                    <ListBox x:Name="listBoxDetalhesVeiculo"
+                             FontSize="14"/>
+
+                </GroupBox>
+
+                <!-- Histórico -->
+                <GroupBox Grid.Row="2"
+                          Header="Histórico de reparações"
+                          FontWeight="Bold"
+                          Background="White"
+                          Padding="10">
+
+                    <ListBox x:Name="listBoxHistoricoReparacoes"
+                             FontSize="14"/>
+
+                </GroupBox>
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

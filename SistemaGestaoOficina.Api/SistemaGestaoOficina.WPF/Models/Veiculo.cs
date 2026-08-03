@@ -23,5 +23,13 @@ namespace SistemaGestaoOficina.WPF.Models
         public string Combustivel {  get; set; }
 
         public int IdCliente { get; set; }
+
+        public override string ToString()
+        {
+            return Marca + " " +
+                   Modelo + " | " +
+                   Matricula + " | " +
+                   Ano;
+        }
     }
 }

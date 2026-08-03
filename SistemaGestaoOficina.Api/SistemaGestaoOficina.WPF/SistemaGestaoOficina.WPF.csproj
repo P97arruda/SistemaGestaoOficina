@@ -93,6 +93,9 @@
     </Compile>
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\NetworkService.cs" />
+    <Compile Include="VeiculosWindow.xaml.cs">
+      <DependentUpon>VeiculosWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AdicionarVeiculoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReparacoesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VeiculosWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -48,5 +48,11 @@ namespace SistemaGestaoOficina.WPF
             MarcacoesWindow marcacoesWindow = new MarcacoesWindow();
             marcacoesWindow.ShowDialog();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            VeiculosWindow veiculosWindow = new VeiculosWindow();
+            veiculosWindow.ShowDialog();
+        }
     }
 }
