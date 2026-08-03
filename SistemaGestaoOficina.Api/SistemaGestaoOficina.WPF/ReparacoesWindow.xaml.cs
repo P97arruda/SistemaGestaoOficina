@@ -76,10 +76,10 @@ namespace SistemaGestaoOficina.WPF
             CarregarMecanicos();
 
             CarregarMarcacoes();
-            
+
             CarregarReparacoes();
 
-           }
+        }
 
         /// <summary>
         /// Carrega os mecânicos ativos da API.
@@ -160,24 +160,24 @@ namespace SistemaGestaoOficina.WPF
             TodasMarcacoes = (List<Marcacao>)response.Result;
 
             Marcacoes = TodasMarcacoes
-                .Where(m => m.Estado == "Pendente")
-                .Select(m =>
+                .Where(m => m.Estado == "Pendente").Select(m =>
                 {
-                    Veiculo veiculo = Veiculos
-                        .FirstOrDefault(v => v.Id == m.IdVeiculo);
+                    Veiculo veiculo = Veiculos.FirstOrDefault(v => v.Id == m.IdVeiculo);
 
-                    Cliente cliente = Clientes
-                        .FirstOrDefault(c => c.Id == m.IdCliente);
+                    Cliente cliente = Clientes.FirstOrDefault(c => c.Id == m.IdCliente);
 
                     if (veiculo != null)
                     {
+                        m.MarcaVeiculo = veiculo.Marca;
+
+                        m.ModeloVeiculo = veiculo.Modelo;
+
                         m.Matricula = veiculo.Matricula;
                     }
 
                     if (cliente != null)
                     {
-                        m.NomeCliente =
-                            cliente.Nome + " " + cliente.Apelido;
+                        m.NomeCliente = cliente.Nome + " " + cliente.Apelido;
                     }
 
                     return m;
@@ -233,21 +233,17 @@ namespace SistemaGestaoOficina.WPF
             Reparacoes = todasReparacoes
                 .Select(r =>
                 {
-                    Marcacao marcacao = TodasMarcacoes
-                        .FirstOrDefault(m => m.Id == r.IdMarcacao);
+                    Marcacao marcacao = TodasMarcacoes.FirstOrDefault(m => m.Id == r.IdMarcacao);
 
                     if (marcacao != null)
                     {
-                        Cliente cliente = Clientes
-                            .FirstOrDefault(c => c.Id == marcacao.IdCliente);
+                        Cliente cliente = Clientes.FirstOrDefault(c => c.Id == marcacao.IdCliente);
 
-                        Veiculo veiculo = Veiculos
-                            .FirstOrDefault(v => v.Id == marcacao.IdVeiculo);
+                        Veiculo veiculo = Veiculos.FirstOrDefault(v => v.Id == marcacao.IdVeiculo);
 
                         if (cliente != null)
                         {
-                            r.NomeCliente =
-                                cliente.Nome + " " + cliente.Apelido;
+                            r.NomeCliente =cliente.Nome + " " + cliente.Apelido;
                         }
 
                         if (veiculo != null)
@@ -669,14 +665,11 @@ namespace SistemaGestaoOficina.WPF
                 return;
             }
 
-            Marcacao marcacaoSelecionada =
-                comboBoxMarcacao.SelectedItem as Marcacao;
+            Marcacao marcacaoSelecionada = comboBoxMarcacao.SelectedItem as Marcacao;
 
             decimal custoTotal;
 
-            bool custoValido = decimal.TryParse(
-                txtCustoTotal.Text.Replace("€", "").Trim(),
-                out custoTotal);
+            bool custoValido = decimal.TryParse(txtCustoTotal.Text.Replace("€", "").Trim(),out custoTotal);
 
             if (!custoValido || custoTotal <= 0)
             {
@@ -697,16 +690,13 @@ namespace SistemaGestaoOficina.WPF
 
             reparacao.CustoTotal = custoTotal;
 
-            reparacao.DataInicio =
-                datePickerInicio.SelectedDate.Value;
+            reparacao.DataInicio = datePickerInicio.SelectedDate.Value;
 
-            reparacao.DataFim =
-                datePickerFim.SelectedDate.Value;
+            reparacao.DataFim = datePickerFim.SelectedDate.Value;
 
             reparacao.Concluida = true;
 
-            reparacao.TipoServico =
-                marcacaoSelecionada.TipoServico;
+            reparacao.TipoServico = marcacaoSelecionada.TipoServico;
 
             var connection = networkService.CheckConnection();
 
@@ -721,10 +711,7 @@ namespace SistemaGestaoOficina.WPF
                 return;
             }
 
-            var responseReparacao = await apiService.Post(
-                "https://localhost:44390/",
-                "api/reparacoes",
-                reparacao);
+            var responseReparacao = await apiService.Post("https://localhost:44390/", "api/reparacoes", reparacao);
 
             if (!responseReparacao.IsSuccess)
             {

@@ -26,12 +26,18 @@ namespace SistemaGestaoOficina.WPF.Models
 
         public string NomeCliente { get; set; }
 
+        public string ModeloVeiculo { get; set; }
+
+        public string MarcaVeiculo { get; set; }
+
         public override string ToString()
         {
             return NomeCliente + " | " +
-                   Matricula + " | " +
-                   TipoServico + " | " +
-                   DataHora.ToString("dd/MM/yyyy HH:mm");
+             MarcaVeiculo + " " +
+             ModeloVeiculo + " | " +
+             Matricula + " | " +
+             TipoServico + " | " +
+             DataHora.ToString("dd/MM/yyyy HH:mm");
         }
     }
 }
