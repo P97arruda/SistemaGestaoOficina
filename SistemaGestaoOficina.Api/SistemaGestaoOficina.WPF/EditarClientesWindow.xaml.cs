@@ -43,7 +43,7 @@ namespace SistemaGestaoOficina.WPF
         #region Metodos 
 
         /// <summary>
-        /// 
+        /// Carrega os dados do cliente.
         /// </summary>
         /// <param name="cliente"></param>
         private void CarregarCliente(Cliente cliente)
@@ -57,7 +57,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os veículos do cliente.
         /// </summary>
         private async void LoadVeiculos()
         {
@@ -83,7 +83,7 @@ namespace SistemaGestaoOficina.WPF
 
 
         /// <summary>
-        /// 
+        /// Valida os dados do cliente.
         /// </summary>
         /// <returns></returns>
         private bool ValidaWPF()
@@ -305,7 +305,11 @@ namespace SistemaGestaoOficina.WPF
         #endregion
 
 
-
+        /// <summary>
+        /// Atualiza os dados do cliente.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidaWPF())
@@ -375,11 +379,21 @@ namespace SistemaGestaoOficina.WPF
 
         }
 
+        /// <summary>
+        /// Permite apenas a introdução de números.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtNif_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(char.IsDigit);
         }
 
+        /// <summary>
+        /// Permite apenas a introdução do contacto.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtContacto_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -393,11 +407,21 @@ namespace SistemaGestaoOficina.WPF
             e.Handled = !e.Text.All(char.IsDigit);
         }
 
+        /// <summary>
+        /// Permite apenas a introdução de letras
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtNome_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(c => char.IsLetter(c) || c == ' ');
         }
 
+        /// <summary>
+        /// Abre a janela para editar o veículo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditarVeiculo_Click(object sender, RoutedEventArgs e)
         {
             Veiculo veiculoSelecionado = dataGridVeiculos.SelectedItem as Veiculo;
@@ -420,6 +444,11 @@ namespace SistemaGestaoOficina.WPF
             LoadVeiculos();
         }
 
+        /// <summary>
+        /// Apaga o veículo selecionado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnApagarVeiculo_Click(object sender, RoutedEventArgs e)
         {
             Veiculo veiculoSelecionado = dataGridVeiculos.SelectedItem as Veiculo;

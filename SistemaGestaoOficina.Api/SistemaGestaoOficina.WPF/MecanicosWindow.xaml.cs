@@ -41,7 +41,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os mecânicos da API.
         /// </summary>
         /// <returns></returns>
         private async Task LoadMecanicos()
@@ -68,13 +68,17 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega as especialidades.
         /// </summary>
         private void CarregarEspecialidades()
         {
             comboBoxEspecialidade.ItemsSource = Enum.GetValues(typeof(Especialidade));
         }
 
+        /// <summary>
+        /// Valida os dados do mecânico.
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaWPF()
         {
             if (string.IsNullOrWhiteSpace(txtNome.Text) &&
@@ -171,6 +175,11 @@ namespace SistemaGestaoOficina.WPF
             return true;
         }
 
+        /// <summary>
+        /// Permite apenas a introdução do contacto.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtContacto_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (e.Text == "+")
@@ -185,7 +194,7 @@ namespace SistemaGestaoOficina.WPF
 
 
         /// <summary>
-        /// 
+        /// Permite apenas a introdução de letras.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -194,7 +203,11 @@ namespace SistemaGestaoOficina.WPF
             e.Handled = !e.Text.All(c => char.IsLetter(c) || c == ' ');
         }
 
-
+        /// <summary>
+        /// Guarda um novo mecânico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidaWPF())
@@ -234,9 +247,11 @@ namespace SistemaGestaoOficina.WPF
 
             LoadMecanicos();
             LimparCampos();
-
         }
 
+        /// <summary>
+        /// Limpa os campos do formulário.
+        /// </summary>
         private void LimparCampos()
         {
             txtNome.Text = string.Empty;
@@ -244,10 +259,14 @@ namespace SistemaGestaoOficina.WPF
             txtContacto.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Apaga o mecânico selecionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnApagar_Click(object sender, RoutedEventArgs e)
         {
-            Mecanico mecanicoSelecionado =
-        listBoxMecanicos.SelectedItem as Mecanico;
+            Mecanico mecanicoSelecionado = listBoxMecanicos.SelectedItem as Mecanico;
 
             if (mecanicoSelecionado == null)
             {
@@ -293,6 +312,11 @@ namespace SistemaGestaoOficina.WPF
             await LoadMecanicos();
         }
 
+        /// <summary>
+        /// Abre a janela para editar o mecânico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnEditar_Click(object sender, RoutedEventArgs e)
         {
             Mecanico mecanicoSelecionado = listBoxMecanicos.SelectedItem as Mecanico;
@@ -315,6 +339,11 @@ namespace SistemaGestaoOficina.WPF
             LoadMecanicos();
         }
 
+        /// <summary>
+        /// Desativa o mecânico selecionado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnDesativar_Click(object sender, RoutedEventArgs e)
         {
             Mecanico mecanicoSelecionado =
@@ -333,10 +362,7 @@ namespace SistemaGestaoOficina.WPF
 
             mecanicoSelecionado.Ativo = false;
 
-            var response = await apiService.Put<Mecanico>(
-                "https://localhost:44390/",
-                "api/mecanicos/" + mecanicoSelecionado.Id,
-                mecanicoSelecionado);
+            var response = await apiService.Put<Mecanico>( "https://localhost:44390/","api/mecanicos/" + mecanicoSelecionado.Id,mecanicoSelecionado);
 
             if (!response.IsSuccess)
             {
@@ -358,6 +384,11 @@ namespace SistemaGestaoOficina.WPF
             await LoadMecanicos();
         }
 
+        /// <summary>
+        /// Ativa o mecânico selecionado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnAtivar_Click(object sender, RoutedEventArgs e)
         {
             Mecanico mecanicoSelecionado = listBoxMecanicos.SelectedItem as Mecanico;
@@ -375,10 +406,7 @@ namespace SistemaGestaoOficina.WPF
 
             mecanicoSelecionado.Ativo = true;
 
-            var response = await apiService.Put<Mecanico>(
-                "https://localhost:44390/",
-                "api/mecanicos/" + mecanicoSelecionado.Id,
-                mecanicoSelecionado);
+            var response = await apiService.Put<Mecanico>("https://localhost:44390/", "api/mecanicos/" + mecanicoSelecionado.Id, mecanicoSelecionado);
 
             if (!response.IsSuccess)
             {

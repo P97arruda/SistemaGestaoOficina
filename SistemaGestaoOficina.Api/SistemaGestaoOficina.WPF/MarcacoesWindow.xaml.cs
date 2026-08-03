@@ -138,7 +138,10 @@ namespace SistemaGestaoOficina.WPF
 
             CarregarMarcacoes();
         }
-
+        /// <summary>
+        /// Carrega os veículos da API.
+        /// </summary>
+        /// <returns></returns>
         private async Task CarregarVeiculos()
         {
             var response = await apiService.Get<Veiculo>("https://localhost:44390/", "api/veiculos");
@@ -238,6 +241,11 @@ namespace SistemaGestaoOficina.WPF
             listBoxDetalhesMarcacao.ItemsSource = detalhes;
         }
 
+        /// <summary>
+        /// Pesquisa marcações.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPesquisarMarcacao_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtPesquisarMarcacao.Text))

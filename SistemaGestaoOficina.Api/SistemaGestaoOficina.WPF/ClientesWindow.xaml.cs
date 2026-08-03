@@ -50,7 +50,7 @@ namespace SistemaGestaoOficina.WPF
 
         #region Métodos
         /// <summary>
-        /// 
+        /// Carrega os clientes da API.
         /// </summary>
         private async void LoadClientes()
         {
@@ -85,7 +85,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Limpa os campos do cliente.
         /// </summary>
         private void LimparCliente()
         {
@@ -96,6 +96,10 @@ namespace SistemaGestaoOficina.WPF
             txtEmail.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Valida os dados do cliente.
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaWPF()
         {
             if (string.IsNullOrWhiteSpace(txtNome.Text) &&
@@ -467,6 +471,11 @@ namespace SistemaGestaoOficina.WPF
         }
         #endregion
 
+        /// <summary>
+        /// Abre a janela para adicionar um veículo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdicionarCarro_Click(object sender, RoutedEventArgs e)
         {
             AdicionarVeiculoWindow adicionarVeiculoWindow = new AdicionarVeiculoWindow();
@@ -477,6 +486,11 @@ namespace SistemaGestaoOficina.WPF
 
         }
 
+        /// <summary>
+        /// Abre a janela de marcação.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMarcacao_Click(object sender, RoutedEventArgs e)
         {
             Cliente clienteSelecionado = dataGridClientes.SelectedItem as Cliente;
@@ -500,6 +514,9 @@ namespace SistemaGestaoOficina.WPF
             CarregarMarcacoes();
         }
 
+        /// <summary>
+        /// Carrega as marcações da API.
+        /// </summary>
         private async void CarregarMarcacoes()
         {
             var response = await apiService.Get<Marcacao>("https://localhost:44390/", "api/marcacoes");
@@ -515,6 +532,9 @@ namespace SistemaGestaoOficina.WPF
             MostrarMarcacoesCliente();
         }
 
+        /// <summary>
+        /// Mostra as marcações do cliente selecionado.
+        /// </summary>
         private void MostrarMarcacoesCliente()
         {
             if (dataGridClientes.SelectedItem == null)
@@ -555,11 +575,19 @@ namespace SistemaGestaoOficina.WPF
             listBoxMarcacoes.ItemsSource = Marcacoes;
         }
 
+        /// <summary>
+        /// Mostra as marcações do cliente selecionado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MostrarMarcacoesCliente();
         }
 
+        /// <summary>
+        /// Carrega os veículos da API.
+        /// </summary>
         private async void CarregarVeiculos()
         {
             var response = await apiService.Get<Veiculo>("https://localhost:44390/", "api/veiculos");
@@ -575,6 +603,11 @@ namespace SistemaGestaoOficina.WPF
             CarregarMarcacoes();
         }
 
+        /// <summary>
+        /// Cancela a marcação selecionada.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnCancelarMarcacao_Click(object sender, RoutedEventArgs e)
         {
             Marcacao marcacaoSelecionada = listBoxMarcacoes.SelectedItem as Marcacao;
@@ -634,6 +667,11 @@ namespace SistemaGestaoOficina.WPF
             CarregarMarcacoes();
         }
 
+        /// <summary>
+        /// Abre a janela para editar a marcação.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditarMarcacao_Click(object sender, RoutedEventArgs e)
         {
             Marcacao marcacaoSelecionada = listBoxMarcacoes.SelectedItem as Marcacao;
@@ -667,6 +705,11 @@ namespace SistemaGestaoOficina.WPF
             CarregarMarcacoes();
         }
 
+        /// <summary>
+        /// Pesquisa clientes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPesquisarCliente_Click(object sender, RoutedEventArgs e)
         {
 
@@ -710,11 +753,15 @@ namespace SistemaGestaoOficina.WPF
 
         }
 
+        /// <summary>
+        /// Pesquisa marcações.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPesquisarMarcacao_Click(object sender, RoutedEventArgs e)
         {
 
-            Cliente clienteSelecionado =
-       dataGridClientes.SelectedItem as Cliente;
+            Cliente clienteSelecionado = dataGridClientes.SelectedItem as Cliente;
 
             if (clienteSelecionado == null)
             {

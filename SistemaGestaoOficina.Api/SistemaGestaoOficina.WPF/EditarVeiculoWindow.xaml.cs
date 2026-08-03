@@ -43,7 +43,7 @@ namespace SistemaGestaoOficina.WPF
 
 
         /// <summary>
-        /// 
+        /// Carrega os dados do veículo.
         /// </summary>
         private void CarregarVeiculo()
         {
@@ -69,7 +69,7 @@ namespace SistemaGestaoOficina.WPF
 
 
         /// <summary>
-        /// 
+        /// Carrega os anos disponíveis.
         /// </summary>
         private void CarregarAnos()
         {
@@ -81,23 +81,29 @@ namespace SistemaGestaoOficina.WPF
 
 
         /// <summary>
-        /// 
+        /// Carrega as marcas e os combustíveis.
         /// </summary>
         private void CarregarEnums()
         {
-            comboBoxMarca.ItemsSource =
-                Enum.GetValues(typeof(MarcaVeiculos));
+            comboBoxMarca.ItemsSource = Enum.GetValues(typeof(MarcaVeiculos));
 
-            comboBoxCombustivel.ItemsSource =
-                Enum.GetValues(typeof(Combustivel));
+            comboBoxCombustivel.ItemsSource = Enum.GetValues(typeof(Combustivel));
         }
 
-
+        /// <summary>
+        /// Permite apenas a introdução de números.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtQuilometragem_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(char.IsDigit);
         }
 
+        /// <summary>
+        /// Valida os dados do veículo
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaWPF()
         {
             if (string.IsNullOrWhiteSpace(txtMatricula.Text))
@@ -242,7 +248,11 @@ namespace SistemaGestaoOficina.WPF
             return true;
         }
 
-
+        /// <summary>
+        /// Atualiza os dados do veículo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidaWPF())
@@ -278,6 +288,11 @@ namespace SistemaGestaoOficina.WPF
             Close();
         }
 
+        /// <summary>
+        /// Fecha a janela
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             Close();

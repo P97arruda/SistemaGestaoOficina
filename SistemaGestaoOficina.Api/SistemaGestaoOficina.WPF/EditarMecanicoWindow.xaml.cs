@@ -40,7 +40,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os dados do mecânico.
         /// </summary>
         private void CarregarMecanico()
         {
@@ -53,7 +53,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Valida os dados do mecânico.
         /// </summary>
         /// <returns></returns>
         private bool ValidaWPF()
@@ -152,7 +152,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega as especialidades.
         /// </summary>
         private void CarregarEspecialidades()
         {
@@ -160,7 +160,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Permite apenas a introdução de letras.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -170,7 +170,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Permite apenas a introdução de números.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -179,6 +179,12 @@ namespace SistemaGestaoOficina.WPF
             e.Handled = !e.Text.All(char.IsDigit);
         }
 
+        /// <summary>
+        /// Atualiza os dados do mecânico.
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidaWPF())
@@ -210,6 +216,11 @@ namespace SistemaGestaoOficina.WPF
 
         }
 
+        /// <summary>
+        /// Fecha a janela.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFechar_Click(object sender, RoutedEventArgs e)
         {
             Close();

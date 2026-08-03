@@ -52,7 +52,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os dados do cliente.
         /// </summary>
         private async void CarregarCliente()
         {
@@ -60,7 +60,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os veículos do cliente.
         /// </summary>
         private async void CarregarVeiculos()
         {
@@ -73,9 +73,7 @@ namespace SistemaGestaoOficina.WPF
                 return;
             }
 
-            var response = await apiService.Get<Veiculo>(
-                "https://localhost:44390/",
-                "api/veiculos");
+            var response = await apiService.Get<Veiculo>("https://localhost:44390/","api/veiculos");
 
             if (!response.IsSuccess)
             {
@@ -87,15 +85,13 @@ namespace SistemaGestaoOficina.WPF
             List<Veiculo> todosVeiculos =
                 (List<Veiculo>)response.Result;
 
-            Veiculos = todosVeiculos
-                .Where(v => v.IdCliente == cliente.Id)
-                .ToList();
+            Veiculos = todosVeiculos.Where(v => v.IdCliente == cliente.Id).ToList();
 
             comboBoxVeiculo.ItemsSource = Veiculos;
         }
 
         /// <summary>
-        /// 
+        /// Carrega os mecânicos ativos.
         /// </summary>
         private async void CarregarMecanicos()
         {
@@ -130,16 +126,15 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os tipos de serviço.
         /// </summary>
         private void CarregarTiposServico()
         {
-            comboBoxTipoServico.ItemsSource =
-                Enum.GetValues(typeof(TipoServico));
+            comboBoxTipoServico.ItemsSource = Enum.GetValues(typeof(TipoServico));
         }
 
         /// <summary>
-        /// 
+        /// Carrega os horários disponíveis.
         /// </summary>
         private void CarregarHorarios()
         {
@@ -158,7 +153,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Atualiza os horários disponíveis para a data selecionada.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -190,7 +185,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os horários disponíveis para a marcação.
         /// </summary>
         private void CarregarHorariosDisponiveis()
         {
@@ -241,7 +236,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega as marcações da API.
         /// </summary>
         private async void CarregarMarcacoes()
         {
@@ -271,11 +266,20 @@ namespace SistemaGestaoOficina.WPF
         }
 
 
+        /// <summary>
+        /// Atualiza os horários disponíveis do mecânico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxMecanico_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CarregarHorariosDisponiveis();
         }
 
+        /// <summary>
+        /// Valida os dados da marcação.
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaWPF()
         {
             if (comboBoxVeiculo.SelectedItem == null)
@@ -316,11 +320,21 @@ namespace SistemaGestaoOficina.WPF
             return true;
         }
 
+        /// <summary>
+        /// Fecha a janela.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Guarda uma nova marcação.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidaWPF())

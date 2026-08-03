@@ -36,7 +36,7 @@ namespace SistemaGestaoOficina.WPF
         }
 
         /// <summary>
-        /// 
+        /// Carrega os valores dos enums de marca e combustível para as ComboBox.
         /// </summary>
         private void CarregarEnums()
         {
@@ -56,7 +56,7 @@ namespace SistemaGestaoOficina.WPF
 
 
         /// <summary>
-        /// 
+        /// Carrega os clientes da API e preenche a ComboBox de clientes.
         /// </summary>
         /// <returns></returns>
         private async void LoadClientes()
@@ -86,6 +86,10 @@ namespace SistemaGestaoOficina.WPF
             comboBoxCliente.SelectedValuePath = "Id";
         }
 
+        /// <summary>
+        /// Valida os dados do veículo
+        /// </summary>
+        /// <returns></returns>
         private bool ValidaWPF()
         {
             if (comboBoxCliente.SelectedItem == null &&
@@ -257,9 +261,11 @@ namespace SistemaGestaoOficina.WPF
             return true;
         }
 
-
-
-
+        /// <summary>
+        /// Guarda um novo veículo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidaWPF())
@@ -290,11 +296,21 @@ namespace SistemaGestaoOficina.WPF
             Close();
         }
 
+        /// <summary>
+        /// Permite apenas a introdução de números.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtQuilometragem_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(char.IsDigit);
         }
 
+        /// <summary>
+        /// Fecha a janela.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             Close();
